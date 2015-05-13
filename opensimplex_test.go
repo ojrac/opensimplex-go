@@ -56,12 +56,6 @@ func loadSamples() <-chan []float64 {
 	return c
 }
 
-const nearlyEqualEpsilon = 0.000000000001
-
-func nearlyEqual(a, b float64) (bool, float64) {
-	return a == b, 0
-}
-
 func TestSamplesMatch(t *testing.T) {
 	samples := loadSamples()
 	n := NewOpenSimplexWithSeed(0)
