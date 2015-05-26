@@ -1,4 +1,4 @@
-package noise
+package opensimplex
 
 import (
 	"math"
