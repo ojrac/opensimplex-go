@@ -58,7 +58,7 @@ func loadSamples() <-chan []float64 {
 
 func TestSamplesMatch(t *testing.T) {
 	samples := loadSamples()
-	n := NewOpenSimplexWithSeed(0)
+	n := NewWithSeed(0)
 
 	for s := range samples {
 		var expected, actual float64

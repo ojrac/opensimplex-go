@@ -27,17 +27,17 @@ const (
 	defaultSeed = 0
 )
 
-type OpenSimplexNoise struct {
+type Noise struct {
 	perm            []int16
 	permGradIndex3D []int16
 }
 
-func NewOpenSimplex() *OpenSimplexNoise {
-	return NewOpenSimplexWithSeed(defaultSeed)
+func New() *Noise {
+	return NewWithSeed(defaultSeed)
 }
 
-func NewOpenSimplexWithPerm(perm []int16) *OpenSimplexNoise {
-	s := OpenSimplexNoise{
+func NewWithPerm(perm []int16) *Noise {
+	s := Noise{
 		perm:            perm,
 		permGradIndex3D: make([]int16, 256),
 	}
@@ -53,8 +53,8 @@ func NewOpenSimplexWithPerm(perm []int16) *OpenSimplexNoise {
 // Initializes the class using a permutation array generated from a 64-bit seed.
 // Generates a proper permutation (i.e. doesn't merely perform N successive pair swaps on a base array)
 // Uses a simple 64-bit LCG.
-func NewOpenSimplexWithSeed(seed int64) *OpenSimplexNoise {
-	s := OpenSimplexNoise{
+func NewWithSeed(seed int64) *Noise {
+	s := Noise{
 		perm:            make([]int16, 256),
 		permGradIndex3D: make([]int16, 256),
 	}
@@ -82,7 +82,7 @@ func NewOpenSimplexWithSeed(seed int64) *OpenSimplexNoise {
 	return &s
 }
 
-func (s *OpenSimplexNoise) Eval2(x, y float64) float64 {
+func (s *Noise) Eval2(x, y float64) float64 {
 	// Place input coordinates onto grid.
 	stretchOffset := (x + y) * stretchConstant2D
 	xs := float64(x + stretchOffset)
@@ -195,7 +195,7 @@ func (s *OpenSimplexNoise) Eval2(x, y float64) float64 {
 	return value / normConstant2D
 }
 
-func (s *OpenSimplexNoise) Eval3(x, y, z float64) float64 {
+func (s *Noise) Eval3(x, y, z float64) float64 {
 
 	// Place input coordinates on simplectic honeycomb.
 	stretchOffset := (x + y + z) * stretchConstant3D
@@ -783,7 +783,7 @@ func (s *OpenSimplexNoise) Eval3(x, y, z float64) float64 {
 }
 
 // 4D OpenSimplex Noise.
-func (s *OpenSimplexNoise) Eval4(x, y, z, w float64) float64 {
+func (s *Noise) Eval4(x, y, z, w float64) float64 {
 	// Place input coordinates on simplectic honeycomb.
 	stretchOffset := (x + y + z + w) * stretchConstant4D
 	xs := x + stretchOffset
@@ -2245,17 +2245,17 @@ func (s *OpenSimplexNoise) Eval4(x, y, z, w float64) float64 {
 	return value / normConstant4D
 }
 
-func (s *OpenSimplexNoise) extrapolate2(xsb, ysb int32, dx, dy float64) float64 {
+func (s *Noise) extrapolate2(xsb, ysb int32, dx, dy float64) float64 {
 	index := s.perm[(int32(s.perm[xsb&0xFF])+ysb)&0xFF] & 0x0E
 	return float64(gradients2D[index])*dx + float64(gradients2D[index+1])*dy
 }
 
-func (s *OpenSimplexNoise) extrapolate3(xsb, ysb, zsb int32, dx, dy, dz float64) float64 {
+func (s *Noise) extrapolate3(xsb, ysb, zsb int32, dx, dy, dz float64) float64 {
 	index := s.permGradIndex3D[(int32(s.perm[(int32(s.perm[xsb&0xFF])+ysb)&0xFF])+zsb)&0xFF]
 	return float64(gradients3D[index])*dx + float64(gradients3D[index+1])*dy + float64(gradients3D[index+2])*dz
 }
 
-func (s *OpenSimplexNoise) extrapolate4(xsb, ysb, zsb, wsb int32, dx, dy, dz, dw float64) float64 {
+func (s *Noise) extrapolate4(xsb, ysb, zsb, wsb int32, dx, dy, dz, dw float64) float64 {
 	index := s.perm[(int32(s.perm[(int32(s.perm[(int32(s.perm[xsb&0xFF])+ysb)&0xFF])+zsb)&0xFF])+wsb)&0xFF] & 0xFC
 	return float64(gradients4D[index])*dx + float64(gradients4D[index+1])*dy + float64(gradients4D[index+2])*dz + float64(gradients4D[index+3])*dw
 }
