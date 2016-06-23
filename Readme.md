@@ -24,6 +24,15 @@ generate noise with noticeable axis-aligned artifacts. Simplex noise fixes
 these artifacts, but it's patented. OpenSimplex noise is for people who don't
 want to deal with Simplex's patent.
 
+The difference between Perlin and OpenSimplex noise is easiest to see in
+pictures. This is Perlin noise, with a noticeable bias towards vertical and
+horizontal artifacts:
+
+![Perlin Noise sample](http://67.media.tumblr.com/153d6efb739746f114c52f86391c3932/tumblr_inline_nc4swj5tX51seaucq.png)
+
+Here's what OpenSimplex noise looks like:
+![OpenSimplex Noise sample](http://67.media.tumblr.com/6186a25f7bafb258c30101ee3c0c87b4/tumblr_inline_ngubweRMTr1seaucq.png)
+
 
 Tests
 -----------
