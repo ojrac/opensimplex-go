@@ -1,3 +1,13 @@
+// opensimplex is a Go implementation of Kurt Spencer's patent-free alternative
+// to Perlin and Simplex noise.
+//
+// Given a seed, it generates smoothly-changing deterministic random values in
+// 2, 3 or 4 dimensions. It's commonly used for procedurally generated images,
+// geometry, or other randomly-influenced applications that require a random
+// gradient.
+//
+// For more information on OpenSimplex noise, read more from the creator of the
+// algorithm: http://uniblock.tumblr.com/post/97868843242/noise
 package opensimplex
 
 import (
@@ -27,32 +37,20 @@ const (
 	defaultSeed = 0
 )
 
+// A seeded Noise instance. Reusing a Noise instance (rather than recreating it
+// from a known seed) will save some calculation time.
 type Noise struct {
 	perm            []int16
 	permGradIndex3D []int16
 }
 
+// Returns a Noise instance with a seed of 0.
 func New() *Noise {
 	return NewWithSeed(defaultSeed)
 }
 
-func NewWithPerm(perm []int16) *Noise {
-	s := Noise{
-		perm:            perm,
-		permGradIndex3D: make([]int16, 256),
-	}
-
-	for i, p := range perm {
-		// Since 3D has 24 gradients, simple bitmask won't work, so precompute modulo array.
-		s.permGradIndex3D[i] = (p % (int16(len(gradients3D)) / 3)) % 3
-	}
-
-	return &s
-}
-
-// Initializes the class using a permutation array generated from a 64-bit seed.
-// Generates a proper permutation (i.e. doesn't merely perform N successive pair swaps on a base array)
-// Uses a simple 64-bit LCG.
+// Returns a Noise instance with a 64-bit seed. Two Noise instances with the
+// same seed will have the same output.
 func NewWithSeed(seed int64) *Noise {
 	s := Noise{
 		perm:            make([]int16, 256),
@@ -82,6 +80,24 @@ func NewWithSeed(seed int64) *Noise {
 	return &s
 }
 
+// Returns a Noise instance with a specific internal permutation state.
+// If you're not sure about this, you probably want NewWithSeed().
+func NewWithPerm(perm []int16) *Noise {
+	s := Noise{
+		perm:            perm,
+		permGradIndex3D: make([]int16, 256),
+	}
+
+	for i, p := range perm {
+		// Since 3D has 24 gradients, simple bitmask won't work, so precompute modulo array.
+		s.permGradIndex3D[i] = (p % (int16(len(gradients3D)) / 3)) % 3
+	}
+
+	return &s
+}
+
+// Returns a random noise value in two dimensions. Repeated calls with the same
+// x/y inputs will have the same output.
 func (s *Noise) Eval2(x, y float64) float64 {
 	// Place input coordinates onto grid.
 	stretchOffset := (x + y) * stretchConstant2D
@@ -195,8 +211,8 @@ func (s *Noise) Eval2(x, y float64) float64 {
 	return value / normConstant2D
 }
 
+// Returns a random noise value in three dimensions.
 func (s *Noise) Eval3(x, y, z float64) float64 {
-
 	// Place input coordinates on simplectic honeycomb.
 	stretchOffset := (x + y + z) * stretchConstant3D
 	xs := float64(x + stretchOffset)
@@ -782,7 +798,7 @@ func (s *Noise) Eval3(x, y, z float64) float64 {
 	return value / normConstant3D
 }
 
-// 4D OpenSimplex Noise.
+// Returns a random noise value in four dimensions.
 func (s *Noise) Eval4(x, y, z, w float64) float64 {
 	// Place input coordinates on simplectic honeycomb.
 	stretchOffset := (x + y + z + w) * stretchConstant4D
