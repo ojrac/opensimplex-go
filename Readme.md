@@ -31,6 +31,7 @@ horizontal artifacts:
 ![Perlin Noise sample](http://67.media.tumblr.com/153d6efb739746f114c52f86391c3932/tumblr_inline_nc4swj5tX51seaucq.png)
 
 Here's what OpenSimplex noise looks like:
+
 ![OpenSimplex Noise sample](http://67.media.tumblr.com/6186a25f7bafb258c30101ee3c0c87b4/tumblr_inline_ngubweRMTr1seaucq.png)
 
 
