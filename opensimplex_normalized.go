@@ -5,13 +5,13 @@ const (
 	// in the formula for normalizing the raw output
 	// of the OpenSimplex algorithm. They were
 	// derived from empirical observations of the
-	// range of raw values. They work on the approximate
-	// (-0.866, 0.866) range produced by Eval2.
-	// TODO: If the raw Eval3 or Eval4 functions produce a
-	// different range, they will require different constants to
-	// normalize.
-	normMin   = 0.864366441
-	normScale = 0.5784583670
+	// range of raw values. Different constants are
+	// required for each of Eval2, Eval3, and Eval4.
+	normMin2   = 0.864366441
+	normScale2 = 0.5784583670
+
+	normMin3   = 0.944824004155
+	normScale3 = 0.5291990849667171
 )
 
 // TODO: Implement Eval3 and Eval4 to satisfy Noise interface.
@@ -22,7 +22,14 @@ type normNoise struct {
 // Eval2 returns a random noise value in two dimensions
 // in the range [0, 1).
 func (s *normNoise) Eval2(x, y float64) float64 {
-	return norm(s.base.Eval2(x, y))
+	//return norm2_64(s.base.Eval2(x, y))
+	r := s.base.Eval2(x, y)
+	return (r + normMin2) * normScale2
+}
+
+func (s *normNoise) Eval3(x, y, z float64) float64 {
+	r := s.base.Eval3(x, y, z)
+	return (r + normMin3) * normScale3
 }
 
 // TODO: Implement Eval3 and Eval4 to satisfy Noise32 interface.
@@ -33,24 +40,8 @@ type normNoise32 struct {
 // Eval2 returns a random noise value in two dimensions
 // in the range [0, 1).
 func (s *normNoise32) Eval2(x, y float32) float32 {
-	return norm32(s.base.Eval2(float64(x), float64(y)))
-}
-
-// norm accepts a value from one of the float64 Eval functions
-// and normalizes it to a value in the range [0, 1). Note: if
-// the desired end result is a float32, use norm32 instead,
-// which correctly handles the reduction in precision.
-func norm(n float64) float64 {
-	return (n + normMin) * normScale
-}
-
-// norm32 accepts a value from one of the float64 Eval functions and
-// normalizes it to a value in the range [0, 1). Because a
-// simple cast from a float64 to a float32 can cause issues
-// with precision, this function should be used instead of a
-// cast whenever a float32 is desired.
-func norm32(n float64) float32 {
-	norm64 := (n + normMin) * normScale
+	r := s.base.Eval2(float64(x), float64(y))
+	norm64 := (r + normMin2) * normScale2
 	norm32 := float32(norm64)
 
 	// Empirical testing shows that a simple float32 cast
