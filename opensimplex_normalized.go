@@ -14,7 +14,6 @@ const (
 	normScale3 = 0.5291990849667171
 )
 
-// TODO: Implement Eval3 and Eval4 to satisfy Noise interface.
 type normNoise struct {
 	base noise
 }
@@ -27,12 +26,18 @@ func (s *normNoise) Eval2(x, y float64) float64 {
 	return (r + normMin2) * normScale2
 }
 
+// Eval3 returns a random noise value in three dimensions
+// in the range [0, 1).
 func (s *normNoise) Eval3(x, y, z float64) float64 {
 	r := s.base.Eval3(x, y, z)
 	return (r + normMin3) * normScale3
 }
 
-// TODO: Implement Eval3 and Eval4 to satisfy Noise32 interface.
+// TODO: Find normalization constants for Eval4 and write this function.
+func (s *normNoise) Eval4(x, y, z, t float64) float64 {
+	return 0.5
+}
+
 type normNoise32 struct {
 	base noise
 }
@@ -52,4 +57,25 @@ func (s *normNoise32) Eval2(x, y float32) float32 {
 	} else {
 		return norm32
 	}
+}
+
+// Eval3 returns a random noise value in three dimensions
+// in the range [0, 1).
+func (s *normNoise32) Eval3(x, y, z float32) float32 {
+	r := s.base.Eval3(float64(x), float64(y), float64(z))
+	norm64 := (r + normMin3) * normScale3
+	norm32 := float32(norm64)
+
+	// Unlike Eval2, have not actually tested whether a
+	// simple float32 cast will produce 1.0, but it seems likely.
+	if norm32 >= 1.0 {
+		return float32(0.999999)
+	} else {
+		return norm32
+	}
+}
+
+// TODO: Find normalization constants for Eval4 and write this function.
+func (s *normNoise32) Eval4(x, y, z, t float32) float32 {
+	return 0.5
 }
