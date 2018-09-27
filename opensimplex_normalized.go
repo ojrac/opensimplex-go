@@ -12,6 +12,9 @@ const (
 
 	normMin3   = 0.944824004155
 	normScale3 = 0.5291990849667171
+
+	normMin4   = 1.034
+	normScale4 = 0.48355899419729204
 )
 
 type normNoise struct {
@@ -33,9 +36,11 @@ func (s *normNoise) Eval3(x, y, z float64) float64 {
 	return (r + normMin3) * normScale3
 }
 
-// TODO: Find normalization constants for Eval4 and write this function.
+// Eval4 returns a random noise value in four dimensions
+// in the range [0, 1).
 func (s *normNoise) Eval4(x, y, z, t float64) float64 {
-	return 0.5
+	r := s.base.Eval4(x, y, z, t)
+	return (r + normMin4) * normScale4
 }
 
 type normNoise32 struct {
@@ -75,7 +80,18 @@ func (s *normNoise32) Eval3(x, y, z float32) float32 {
 	}
 }
 
-// TODO: Find normalization constants for Eval4 and write this function.
+// Eval4 returns a random noise value in four dimensions
+// in the range [0, 1).
 func (s *normNoise32) Eval4(x, y, z, t float32) float32 {
-	return 0.5
+	r := s.base.Eval4(float64(x), float64(y), float64(z), float64(t))
+	norm64 := (r + normMin4) * normScale4
+	norm32 := float32(norm64)
+
+	// Unlike Eval2, have not actually tested whether a
+	// simple float32 cast will produce 1.0, but it seems likely.
+	if norm32 >= 1.0 {
+		return float32(0.999999)
+	} else {
+		return norm32
+	}
 }
