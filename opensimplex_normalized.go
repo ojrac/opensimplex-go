@@ -18,7 +18,7 @@ const (
 )
 
 type normNoise struct {
-	base noise
+	base Noise
 }
 
 // Eval2 returns a random noise value in two dimensions
@@ -44,7 +44,7 @@ func (s *normNoise) Eval4(x, y, z, t float64) float64 {
 }
 
 type normNoise32 struct {
-	base noise
+	base Noise
 }
 
 // Eval2 returns a random noise value in two dimensions

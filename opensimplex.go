@@ -32,14 +32,9 @@ type Noise32 interface {
 	Eval4(x, y, z, w float32) float32
 }
 
-// Returns a Noise instance with a seed of 0.
-func New() Noise {
-	return NewWithSeed(defaultSeed)
-}
-
-// Returns a Noise instance with a 64-bit seed. Two Noise instances with the
+// Construct a Noise instance with a 64-bit seed. Two Noise instances with the
 // same seed will have the same output.
-func NewWithSeed(seed int64) Noise {
+func New(seed int64) Noise {
 	s := &noise{
 		perm:            make([]int16, 256),
 		permGradIndex3D: make([]int16, 256),
@@ -68,37 +63,22 @@ func NewWithSeed(seed int64) Noise {
 	return s
 }
 
-// Returns a Noise instance with a specific internal permutation state.
-// If you're not sure about this, you probably want NewWithSeed().
-func NewWithPerm(perm []int16) Noise {
-	s := &noise{
-		perm:            perm,
-		permGradIndex3D: make([]int16, 256),
-	}
-
-	for i, p := range perm {
-		// Since 3D has 24 gradients, simple bitmask won't work, so precompute modulo array.
-		s.permGradIndex3D[i] = (p % (int16(len(gradients3D)) / 3)) % 3
-	}
-
-	return s
+// Construct a Noise32 instance with a 64-bit seed. Two Noise32 instances with the
+// same seed will have the same output.
+func New32(seed int64) Noise32 {
+	return &cast32Noise{base: New(seed)}
 }
 
-// Wraps a noise instance to work with float32 values
-func AsNoise32(noise Noise) Noise32 {
-	return &noiseCast32{noise}
+// Construct a normalized Noise instance with a 64-bit seed. Eval methods will
+// return values in [0, 1). Two Noise instances with the same seed will have
+// the same output.
+func NewNormalized(seed int64) Noise {
+	return &normNoise{base: New(seed)}
 }
 
-type noiseCast32 struct {
-	noise Noise
-}
-
-func (n *noiseCast32) Eval2(x, y float32) float32 {
-	return float32(n.noise.Eval2(float64(x), float64(y)))
-}
-func (n *noiseCast32) Eval3(x, y, z float32) float32 {
-	return float32(n.noise.Eval3(float64(x), float64(y), float64(z)))
-}
-func (n *noiseCast32) Eval4(x, y, z, w float32) float32 {
-	return float32(n.noise.Eval4(float64(x), float64(y), float64(z), float64(w)))
+// Construct a normalized Noise32 instance with a 64-bit seed. Eval methods will
+// return values in [0, 1). Two Noise32 instances with the same seed will have
+// the same output.
+func NewNormalized32(seed int64) Noise32 {
+	return &normNoise32{base: New(seed)}
 }
