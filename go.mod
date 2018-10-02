@@ -1,1 +1,1 @@
-module github.com/ojrac/opensimplex
+module github.com/ojrac/opensimplex-go
