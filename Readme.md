@@ -4,6 +4,7 @@ OpenSimplex in Go
 
 [![GoDoc](https://godoc.org/github.com/ojrac/opensimplex-go?status.svg)](http://godoc.org/github.com/ojrac/opensimplex-go)
 [![Build Status](https://travis-ci.org/ojrac/opensimplex-go.svg?branch=master)](https://travis-ci.org/ojrac/opensimplex-go)
+[![Go Report Card](https://goreportcard.com/badge/github.com/ojrac/opensimplex-go)](https://goreportcard.com/report/github.com/ojrac/opensimplex-go)
 
 OpenSimplex noise is a random noise algorithm by Kurt Spencer, made as a
 patent-free alternative to Perlin and Simplex noise. This Go port is based on
