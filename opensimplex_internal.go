@@ -1,4 +1,4 @@
-package opensimplex
+package ospxn
 
 const (
 	stretchConstant2D = -0.211324865405187 // (1/Math.sqrt(2+1)-1)/2

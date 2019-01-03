@@ -8,7 +8,7 @@
 //
 // For more information on OpenSimplex noise, read more from the creator of the
 // algorithm: http://uniblock.tumblr.com/post/97868843242/noise
-package opensimplex
+package ospxn
 
 /**
  * OpenSimplex Noise in Go.

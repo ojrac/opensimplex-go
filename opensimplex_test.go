@@ -14,7 +14,7 @@
  * computed by evaluating the 2D noise at (1.0, 1.0) and converting from a [-1,
  * +1] scale to [0, +1].
  */
-package opensimplex
+package ospxn
 
 import (
 	"compress/gzip"

@@ -1,4 +1,4 @@
-package opensimplex
+package ospxn
 
 const (
 	// The normMin and normScale constants are used

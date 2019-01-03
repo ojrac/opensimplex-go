@@ -1,4 +1,4 @@
-package opensimplex
+package ospxn
 
 import "math"
 

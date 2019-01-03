@@ -1,1 +1,25 @@
-opensimplex
+# Binaries for programs and plugins
+ospxn
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Test binary, build with `go test -c`
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# GO pprof
+prof.mem
+prof.cpu
+
+# Misc
+launch.json
+.vscode/
+**/.DS_Store
+build/
+dist/
+*.swp
+.idea/

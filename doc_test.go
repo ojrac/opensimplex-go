@@ -1,9 +1,13 @@
-package opensimplex
+package ospxn_test
 
-import "math/rand"
+import (
+	"math/rand"
+
+	"github.com/thee-engineer/ospxn"
+)
 
 func Example() {
-	noise := New(rand.Int63())
+	noise := ospxn.New(rand.Int63())
 
 	w, h := 100, 100
 	heightmap := make([]float64, w, h)

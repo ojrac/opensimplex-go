@@ -1,4 +1,4 @@
-package opensimplex
+package ospxn
 
 // Wraps a noise instance to work with float32 values
 

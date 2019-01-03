@@ -1,1 +1,1 @@
-module github.com/ojrac/opensimplex-go
+module github.com/thee-engineer/ospxn
