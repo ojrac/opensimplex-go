@@ -1,10 +1,9 @@
-OpenSimplex in Go
-=================
+# OpenSimplex Noise
 
+[![GoDoc](https://godoc.org/github.com/thee-engineer/ospxn?status.svg)](http://godoc.org/github.com/thee-engineer/ospxn)
+[![Go Report Card](https://goreportcard.com/badge/github.com/thee-engineer/ospxn)](https://goreportcard.com/report/github.com/thee-engineer/ospxn)
 
-[![GoDoc](https://godoc.org/github.com/ojrac/opensimplex-go?status.svg)](http://godoc.org/github.com/ojrac/opensimplex-go)
-[![Build Status](https://travis-ci.org/ojrac/opensimplex-go.svg?branch=master)](https://travis-ci.org/ojrac/opensimplex-go)
-[![Go Report Card](https://goreportcard.com/badge/github.com/ojrac/opensimplex-go)](https://goreportcard.com/report/github.com/ojrac/opensimplex-go)
+## Description
 
 OpenSimplex noise is a random noise algorithm by Kurt Spencer, made as a
 patent-free alternative to Perlin and Simplex noise. This Go port is based on
@@ -15,9 +14,17 @@ post](http://uniblock.tumblr.com/post/97868843242/noise) announcing it. If
 you're not familiar with random noise, the Wikipedia post on [Perlin
 noise](https://en.wikipedia.org/wiki/Perlin_noise) is a good introduction.
 
+## Install
 
-Why not Perlin noise?
----------------------
+Getting the package is simple, check that you have Go installed (`go version`).
+
+Simply run the following command:
+
+```
+go get github.com/thee-engineer/ospxn
+```
+
+## Why not Perlin noise?
 
 As Kurt explains [in his
 post](http://uniblock.tumblr.com/post/97868843242/noise), Perlin noise tends to
@@ -35,19 +42,3 @@ Here's what OpenSimplex noise looks like:
 
 ![OpenSimplex Noise sample](http://67.media.tumblr.com/6186a25f7bafb258c30101ee3c0c87b4/tumblr_inline_ngubweRMTr1seaucq.png)
 
-
-Tests
------------
-This implementation of OpenSimplex's tests verify its output against the output
-of the reference Java implementation. I haven't run these tests on different
-architectures, so results may vary.
-
-License
--------
-This code is under the same "license" as Kurt's OpenSimplex - the public domain
-"unlicense."
-
-Next Steps
-----------
-* More documentation
-* Benchmarks
