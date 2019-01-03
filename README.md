@@ -2,6 +2,7 @@
 
 [![GoDoc](https://godoc.org/github.com/thee-engineer/ospxn?status.svg)](http://godoc.org/github.com/thee-engineer/ospxn)
 [![Go Report Card](https://goreportcard.com/badge/github.com/thee-engineer/ospxn)](https://goreportcard.com/report/github.com/thee-engineer/ospxn)
+[![Build Status](https://travis-ci.org/thee-engineer/ospxn.svg?branch=patch-1)](https://travis-ci.org/thee-engineer/ospxn)
 
 ## Description
 
@@ -13,6 +14,8 @@ For an introduction to OpenSimplex noise, see [Kurt Spencer's
 post](http://uniblock.tumblr.com/post/97868843242/noise) announcing it. If
 you're not familiar with random noise, the Wikipedia post on [Perlin
 noise](https://en.wikipedia.org/wiki/Perlin_noise) is a good introduction.
+
+This package started as a fork from[ojrac/opensimplex-go](https://github.com/ojrac/opensimplex-go) and then simplified to match my needs.
 
 ## Install
 
