@@ -1,5 +1,5 @@
 // Package ospxn is a Go implementation of Kurt Spencer's patent-free alternative
-// to Perlin and Simplex noise.
+// to Perlin and Simplex noise, with minor changes.
 //
 // Given a seed, it generates smoothly-changing deterministic random values in
 // 2 or 3 dimensions. It's commonly used for procedurally generated images,
