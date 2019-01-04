@@ -6,7 +6,7 @@ func Example() {
 	noise := New(rand.Int63())
 
 	w, h := 100, 100
-	heightmap := make([]float64, w, h)
+	heightmap := make([]float64, w*h)
 	for y := 0; y < h; y++ {
 		for x := 0; x < w; x++ {
 			xFloat := float64(x) / float64(w)
