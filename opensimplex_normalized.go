@@ -7,14 +7,14 @@ const (
 	// derived from empirical observations of the
 	// range of raw values. Different constants are
 	// required for each of Eval2, Eval3, and Eval4.
-	normMin2   = 0.864366441
-	normScale2 = 0.5784583670
+	normMin2   = 0.8659203878240322
+	normScale2 = 0.577420288914181
 
-	normMin3   = 0.944824004155
-	normScale3 = 0.5291990849667171
+	normMin3   = 0.9871048542519545
+	normScale3 = 0.506595297177236
 
-	normMin4   = 1.034
-	normScale4 = 0.48355899419729204
+	normMin4   = 1.0040848236330158
+	normScale4 = 0.5007450643319374
 )
 
 type normNoise struct {
