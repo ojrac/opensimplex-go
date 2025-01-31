@@ -1,3 +1,13 @@
+ARCHIVED
+========
+
+Two things have happened since this repository was built, that you might care about:
+
+- The Simplex noise patent has expired
+- There's a new revision of this algorithm, [OpenSimplex2](https://github.com/KdotJPG/OpenSimplex2)
+
+Feel free to use this library, but I don't intend to make any future updates to it. You may need to create a fork if you'd like it to work differently.
+
 OpenSimplex in Go
 =================
 
